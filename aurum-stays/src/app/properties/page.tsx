@@ -26,11 +26,12 @@ export default async function PropertiesPage({ searchParams }: { searchParams: a
   return (
     <>
       <Header />
-      <main className="pt-28 pb-16">
+      <main className="pt-32 pb-16">
         <Container>
-          <div className="text-center mb-12">
-            <p className="text-[#D4A843] tracking-[0.2em] uppercase text-sm mb-3">Our Collection</p>
-            <h1 className="font-display text-4xl md:text-5xl font-bold">Luxury Properties</h1>
+          <div className="text-center mb-14">
+            <p className="text-[#D4A843] tracking-[0.3em] uppercase text-xs font-medium mb-4">Our Collection</p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold">Luxury <span className="gold-text">Properties</span></h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4A843] to-transparent mx-auto mt-6" />
           </div>
           <PropertyFilters />
           <PropertyGrid properties={properties} />

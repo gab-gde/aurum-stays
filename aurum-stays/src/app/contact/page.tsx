@@ -7,6 +7,13 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { api } from "@/lib/api";
+import { MapPin, Mail, Phone } from "lucide-react";
+
+const info = [
+  { icon: MapPin, title: "Visit Us", text: "42 Avenue Montaigne, 75008 Paris, France" },
+  { icon: Mail, title: "Email Us", text: "hello@aurumstays.com" },
+  { icon: Phone, title: "Call Us", text: "+33 1 42 68 00 00" },
+];
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
@@ -24,25 +31,22 @@ export default function ContactPage() {
     finally { setLoading(false); }
   }
 
-  const info = [
-    { icon: "\ud83d\udccd", title: "Visit Us", text: "42 Avenue Montaigne, 75008 Paris, France" },
-    { icon: "\ud83d\udce7", title: "Email Us", text: "hello@aurumstays.com" },
-    { icon: "\ud83d\udcde", title: "Call Us", text: "+33 1 42 68 00 00" },
-  ];
-
   return (
     <>
       <Header />
-      <main className="pt-28 pb-16">
+      <main className="pt-32 pb-16">
         <Container className="max-w-5xl">
-          <div className="text-center mb-12">
-            <p className="text-[#D4A843] tracking-[0.2em] uppercase text-sm mb-3">Get in Touch</p>
-            <h1 className="font-display text-4xl font-bold">Contact Us</h1>
+          <div className="text-center mb-16">
+            <p className="text-[#D4A843] tracking-[0.3em] uppercase text-xs font-medium mb-4">Get in Touch</p>
+            <h1 className="font-display text-4xl md:text-5xl font-bold">Contact <span className="gold-text">Us</span></h1>
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4A843] to-transparent mx-auto mt-6" />
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-14">
             {info.map(i => (
-              <Card key={i.title} className="text-center !p-6">
-                <span className="text-3xl mb-3 block">{i.icon}</span>
+              <Card key={i.title} className="text-center !p-6 group">
+                <div className="w-10 h-10 rounded-xl bg-[#D4A843]/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-[#D4A843]/20 transition-colors">
+                  <i.icon className="w-4 h-4 text-[#D4A843]" strokeWidth={1.5} />
+                </div>
                 <h3 className="text-white font-semibold mb-1">{i.title}</h3>
                 <p className="text-gray-400 text-sm">{i.text}</p>
               </Card>
@@ -58,7 +62,7 @@ export default function ContactPage() {
               <div className="space-y-1.5">
                 <label className="text-sm text-gray-400 font-medium">Message</label>
                 <textarea name="message" rows={5} required placeholder="Tell us more..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-gray-600 focus:outline-none focus:border-[#D4A843]/50 transition-all resize-none" />
+                  className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.06] rounded-xl text-white placeholder:text-gray-600 focus:outline-none focus:border-[#D4A843]/50 transition-all resize-none" />
               </div>
               <Button type="submit" loading={loading} className="w-full">Send Message</Button>
               {msg && <p className="text-center text-sm text-gray-400">{msg}</p>}

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/lib/api";
+import { LogIn } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,22 +24,27 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[#111217]">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="font-display text-3xl font-bold gold-text tracking-wider">AURUM</Link>
-          <h1 className="font-display text-2xl font-bold text-white mt-6">Welcome Back</h1>
-          <p className="text-gray-500 mt-2">Sign in to your account</p>
+    <div className="min-h-screen flex items-center justify-center px-4 bg-[#111217] relative overflow-hidden">
+      <div className="absolute inset-0 bg-radial-gold opacity-20" />
+      <div className="absolute top-10 left-10 w-32 h-32 border-l border-t border-[#D4A843]/10 hidden md:block" />
+      <div className="absolute bottom-10 right-10 w-32 h-32 border-r border-b border-[#D4A843]/10 hidden md:block" />
+      <div className="w-full max-w-md relative">
+        <div className="text-center mb-10">
+          <Link href="/" className="font-display text-3xl font-bold gold-text tracking-[0.15em]">AURUM</Link>
+          <h1 className="font-display text-2xl font-bold text-white mt-8">Welcome Back</h1>
+          <p className="text-gray-500 mt-2 text-sm">Sign in to your account</p>
         </div>
         <div className="luxury-card p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <Input name="email" label="Email" type="email" placeholder="your@email.com" required />
-            <Input name="password" label="Password" type="password" placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" required />
+            <Input name="password" label="Password" type="password" placeholder="Enter your password" required />
             {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-            <Button type="submit" loading={loading} className="w-full">Sign In</Button>
+            <Button type="submit" loading={loading} className="w-full">
+              <LogIn className="w-4 h-4" /> Sign In
+            </Button>
           </form>
         </div>
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-sm mt-8">
           Don&#39;t have an account?{" "}
           <Link href="/register" className="text-[#D4A843] hover:underline">Register</Link>
         </p>

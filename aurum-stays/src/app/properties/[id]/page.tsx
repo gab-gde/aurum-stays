@@ -10,6 +10,7 @@ import { PropertyReviews } from "@/components/property/PropertyReviews";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { Badge } from "@/components/ui/Badge";
 import { Rating } from "@/components/ui/Rating";
+import { Bed, Bath, Users, Maximize } from "lucide-react";
 
 export default async function PropertyPage({ params }: { params: any }) {
   const { id } = await params;
@@ -35,10 +36,10 @@ export default async function PropertyPage({ params }: { params: any }) {
                 <h1 className="font-display text-3xl md:text-4xl font-bold text-white">{property.title}</h1>
                 <p className="text-gray-400 mt-1">{property.location}, {property.country}</p>
                 <div className="flex gap-6 mt-4 text-gray-400 text-sm">
-                  <span>{property.bedrooms} Bedrooms</span>
-                  <span>{property.bathrooms} Bathrooms</span>
-                  <span>{property.maxGuests} Guests</span>
-                  <span>{property.area} m\u00b2</span>
+                  <span className="flex items-center gap-1.5"><Bed className="w-4 h-4 text-[#D4A843]/60" /> {property.bedrooms} Bedrooms</span>
+                  <span className="flex items-center gap-1.5"><Bath className="w-4 h-4 text-[#D4A843]/60" /> {property.bathrooms} Bathrooms</span>
+                  <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-[#D4A843]/60" /> {property.maxGuests} Guests</span>
+                  <span className="flex items-center gap-1.5"><Maximize className="w-4 h-4 text-[#D4A843]/60" /> {property.area} m\u00b2</span>
                 </div>
               </div>
               <div>

@@ -10,8 +10,8 @@ export const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 export const ADMIN_NAV = [
-  { href: "/admin", label: "Dashboard", icon: "\u2302" },
-  { href: "/admin/properties", label: "Properties", icon: "\u2616" },
-  { href: "/admin/bookings", label: "Bookings", icon: "\u2637" },
-  { href: "/admin/users", label: "Users", icon: "\u263A" },
+  { href: "/admin", label: "Dashboard", icon: "LayoutDashboard" },
+  { href: "/admin/properties", label: "Properties", icon: "Building2" },
+  { href: "/admin/bookings", label: "Bookings", icon: "CalendarCheck" },
+  { href: "/admin/users", label: "Users", icon: "Users" },
 ];

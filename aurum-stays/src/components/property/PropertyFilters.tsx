@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 import { PROPERTY_TYPES } from "@/lib/constants";
+import { Search } from "lucide-react";
 
 export function PropertyFilters() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export function PropertyFilters() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass rounded-2xl p-6 mb-10">
+    <form onSubmit={handleSubmit} className="glass rounded-2xl p-6 mb-12">
       <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <Input name="search" placeholder="Search properties..." defaultValue={params.get("search") || ""} />
         <Select name="type" options={[
@@ -33,7 +34,9 @@ export function PropertyFilters() {
           { value: "newest", label: "Newest" },
         ]} defaultValue={params.get("sort") || ""} />
         <Input name="minPrice" type="number" placeholder="Min price" defaultValue={params.get("minPrice") || ""} />
-        <Button type="submit" variant="gold">Filter</Button>
+        <Button type="submit" variant="gold">
+          <Search className="w-4 h-4" /> Filter
+        </Button>
       </div>
     </form>
   );
