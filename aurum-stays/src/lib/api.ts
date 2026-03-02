@@ -1,7 +1,5 @@
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-
 async function fetcher<T>(url: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${url}`, {
+  const res = await fetch(url, {
     headers: { "Content-Type": "application/json" },
     ...options,
   });
