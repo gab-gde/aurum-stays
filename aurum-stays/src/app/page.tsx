@@ -45,7 +45,8 @@ export default async function HomePage() {
         </section>
 
         <section className="py-28 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url(\'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920\')] bg-cover bg-center bg-fixed opacity-10" />
+          <div className="absolute inset-0 bg-cover bg-center bg-fixed opacity-10"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920')" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-[#111217] via-transparent to-[#111217]" />
           <Container className="relative text-center max-w-3xl">
             <p className="text-[#D4A843] tracking-[0.3em] uppercase text-xs font-medium mb-6">Exclusive Access</p>
