@@ -2,11 +2,11 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
-import { Landmark, Handshake, ShieldCheck } from "lucide-react";
+import { Landmark, Users, ShieldCheck } from "lucide-react";
 
 const pillars = [
   { icon: Landmark, title: "Curation", text: "Every property is hand-selected and personally inspected by our team of luxury travel experts." },
-  { icon: Handshake, title: "Service", text: "24/7 dedicated concierge ensuring every detail of your stay exceeds expectations." },
+  { icon: Users, title: "Service", text: "24/7 dedicated concierge ensuring every detail of your stay exceeds expectations." },
   { icon: ShieldCheck, title: "Trust", text: "Secure transactions, verified owners, and transparent pricing with no hidden fees." },
 ];
 

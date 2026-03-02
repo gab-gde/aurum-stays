@@ -2,7 +2,7 @@ import {
   Waves, Eye, ChefHat, Plane, Wine, Sparkles, Landmark,
   Sun, Bell, Film, Dumbbell, Thermometer, Mountain, Bath,
   Flame, Footprints, Umbrella, Target, Grape, Home, Palette,
-  ParkingCircle, Snowflake, WashingMachine, Church, TreePine,
+  ParkingCircle, Snowflake, Wind, Church, TreePine,
   BookOpen, CircleDot, GlassWater
 } from "lucide-react";
 
@@ -14,7 +14,7 @@ const ICONS: Record<string, any> = {
   "Hot Tub": Bath, Fireplace: Flame, "Boot Room": Footprints,
   "Private Beach": Umbrella, Tennis: Target, Vineyard: Grape,
   "Staff Quarters": Home, "Designer Interior": Palette,
-  Parking: ParkingCircle, AC: Snowflake, Washer: WashingMachine,
+  Parking: ParkingCircle, AC: Snowflake, Washer: Wind,
   Chapel: Church, Gardens: TreePine, Library: BookOpen,
   "Billiard Room": CircleDot, "Wine Cave": GlassWater,
 };
