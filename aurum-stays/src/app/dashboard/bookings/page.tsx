@@ -13,7 +13,7 @@ export default function BookingsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.bookings.mine().then(setBookings).catch(() => {}).finally(() => setLoading(false));
+    api.bookings.list().then(setBookings).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
   const statusVariant = (s: string) => s === "CONFIRMED" ? "success" : s === "PENDING" ? "warning" : "danger";

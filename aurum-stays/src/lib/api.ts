@@ -28,5 +28,11 @@ export const api = {
     register: (data: { name: string; email: string; password: string }) =>
       fetcher<{ user: any }>("/api/auth/register", { method: "POST", body: JSON.stringify(data) }),
   },
+  reviews: {
+    create: (data: any) => fetcher<any>("/api/reviews", { method: "POST", body: JSON.stringify(data) }),
+  },
+  user: {
+    update: (data: any) => fetcher<any>("/api/user", { method: "PUT", body: JSON.stringify(data) }),
+  },
   contact: (data: any) => fetcher<any>("/api/contact", { method: "POST", body: JSON.stringify(data) }),
 };
