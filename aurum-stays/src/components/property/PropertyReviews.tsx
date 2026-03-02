@@ -21,7 +21,7 @@ export function PropertyReviews({ reviews, propertyId }: { reviews: any[]; prope
     try {
       await api.reviews.create({
         propertyId, rating,
-        title: fd.get("title") as string,
+        
         comment: fd.get("comment") as string,
       });
       setSuccess(true);
@@ -50,7 +50,7 @@ export function PropertyReviews({ reviews, propertyId }: { reviews: any[]; prope
                 </div>
                 <Rating value={r.rating} />
               </div>
-              {r.title && <p className="text-white/70 text-sm font-medium mb-2">{r.title}</p>}
+              {null}
               <p className="text-white/30 text-sm leading-relaxed">{r.comment}</p>
             </div>
           ))}
@@ -72,7 +72,6 @@ export function PropertyReviews({ reviews, propertyId }: { reviews: any[]; prope
             </div>
           </div>
           <div className="space-y-4">
-            <Input name="title" label="Title" placeholder="Summarize your experience" required />
             <div className="space-y-2">
               <label className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-medium">Your Review</label>
               <textarea name="comment" rows={4} required placeholder="Share your experience..."

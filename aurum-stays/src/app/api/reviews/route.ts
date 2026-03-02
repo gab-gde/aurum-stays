@@ -6,9 +6,9 @@ export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const { propertyId, rating, title, comment } = await req.json();
+    const { propertyId, rating, comment } = await req.json();
     const review = await prisma.review.create({
-      data: { propertyId, userId: user.id, rating, title, comment },
+      data: { propertyId, userId: user.id, rating, comment },
     });
     // Update property avg rating
     const agg = await prisma.review.aggregate({ where: { propertyId }, _avg: { rating: true } });
