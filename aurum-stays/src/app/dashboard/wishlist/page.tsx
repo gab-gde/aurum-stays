@@ -1,28 +1,22 @@
-import { prisma } from "@/lib/prisma";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Container } from "@/components/layout/Container";
-import { PropertyGrid } from "@/components/property/PropertyGrid";
+import Link from "next/link";
 
-export default async function WishlistPage() {
-  const wishlists = await prisma.wishlist.findMany({
-    include: { property: true },
-    take: 20,
-  });
-  const properties = wishlists.map(w => w.property);
-
+export default function WishlistPage() {
   return (
     <>
       <Header />
-      <main className="pt-28 pb-16">
-        <Container>
-          <h1 className="font-display text-3xl font-bold text-white mb-8">My Wishlist</h1>
-          {properties.length === 0 ? (
-            <p className="text-gray-500">Your wishlist is empty. Start exploring properties!</p>
-          ) : (
-            <PropertyGrid properties={properties} />
-          )}
-        </Container>
+      <main className="pt-40 pb-16">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+          <div className="mb-16">
+            <p className="text-[var(--gold)] text-[11px] tracking-[0.4em] uppercase font-medium mb-4">Dashboard</p>
+            <h1 className="font-display text-4xl md:text-5xl font-light">My <em className="text-[var(--gold)]">Wishlist</em></h1>
+          </div>
+          <div className="text-center py-20">
+            <p className="font-display text-2xl text-white/20 italic font-light mb-6">Your wishlist is empty.</p>
+            <Link href="/properties" className="btn-gold"><span>Explore Properties</span></Link>
+          </div>
+        </div>
       </main>
       <Footer />
     </>

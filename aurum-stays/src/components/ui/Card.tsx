@@ -1,11 +1,5 @@
 import { cn } from "@/lib/utils";
 
-export function Card({ children, className, hover = true, ...props }: {
-  children: React.ReactNode; className?: string; hover?: boolean;
-} & React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div className={cn("luxury-card p-6", hover && "hover:border-[#D4A843]/30", className)} {...props}>
-      {children}
-    </div>
-  );
+export function Card({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={cn("border border-white/[0.04] bg-[#111] p-6", className)}>{children}</div>;
 }

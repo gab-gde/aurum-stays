@@ -1,12 +1,11 @@
-export function PropertyMap({ latitude, longitude, title }: {
-  latitude: number | null; longitude: number | null; title: string;
-}) {
-  if (!latitude || !longitude) return null;
-  const src = `https://www.openstreetmap.org/export/embed.html?bbox=${longitude-0.01},${latitude-0.01},${longitude+0.01},${latitude+0.01}&layer=mapnik&marker=${latitude},${longitude}`;
+export function PropertyMap({ location, country }: { location: string; country: string }) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/10">
-      <iframe src={src} width="100%" height="300" className="border-0" loading="lazy"
-        title={`Map of ${title}`} />
+    <div className="border border-white/[0.04] p-8 bg-[#111]">
+      <h3 className="font-display text-xl text-white font-light mb-4">Location</h3>
+      <p className="text-white/30 text-sm">{location}, {country}</p>
+      <div className="mt-6 h-64 bg-white/[0.02] flex items-center justify-center">
+        <p className="text-white/10 text-xs uppercase tracking-widest">Map View</p>
+      </div>
     </div>
   );
 }

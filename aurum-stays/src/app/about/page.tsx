@@ -1,7 +1,5 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Container } from "@/components/layout/Container";
-import { Card } from "@/components/ui/Card";
 import { Landmark, Users, ShieldCheck } from "lucide-react";
 
 const pillars = [
@@ -14,35 +12,36 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="pt-32 pb-16">
-        <Container className="max-w-4xl">
-          <div className="text-center mb-20">
-            <p className="text-[#D4A843] tracking-[0.3em] uppercase text-xs font-medium mb-4">Our Story</p>
-            <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">Redefining <span className="gold-text">Luxury</span> Travel</h1>
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4A843] to-transparent mx-auto mb-8" />
-            <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
+      <main className="pt-40 pb-16">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+          <div className="max-w-3xl mb-24">
+            <p className="text-[var(--gold)] text-[11px] tracking-[0.4em] uppercase font-medium mb-6">Our Story</p>
+            <h1 className="font-display text-5xl md:text-7xl font-light leading-[1.05] mb-10">
+              Redefining<br/><em className="text-[var(--gold)]">Luxury</em> Travel
+            </h1>
+            <p className="text-white/40 text-lg leading-relaxed font-light">
               Founded in 2020, Aurum Stays was born from a passion for extraordinary places and unforgettable
               experiences. We connect discerning travelers with the world&#39;s most exceptional properties.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 mb-20">
+
+          <div className="grid md:grid-cols-3 gap-px bg-white/[0.04] mb-24">
             {pillars.map((p) => (
-              <Card key={p.title} className="text-center !p-8 group">
-                <div className="w-12 h-12 rounded-xl bg-[#D4A843]/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D4A843]/20 transition-colors">
-                  <p.icon className="w-5 h-5 text-[#D4A843]" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-display text-xl font-bold text-white mb-3">{p.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{p.text}</p>
-              </Card>
+              <div key={p.title} className="bg-[var(--dark)] p-12 group hover:bg-[var(--dark-card)] transition-all duration-700">
+                <p.icon className="w-6 h-6 text-[var(--gold)]/50 mb-8 group-hover:text-[var(--gold)] transition-colors duration-500" strokeWidth={1} />
+                <h3 className="font-display text-2xl text-white font-light mb-4">{p.title}</h3>
+                <p className="text-white/30 text-sm leading-relaxed">{p.text}</p>
+              </div>
             ))}
           </div>
-          <blockquote className="text-center border-t border-b border-[#D4A843]/10 py-12">
-            <p className="font-display text-2xl md:text-3xl text-white italic leading-relaxed">
+
+          <blockquote className="text-center py-20 border-t border-b border-white/[0.04]">
+            <p className="font-display text-3xl md:text-4xl text-white italic font-light leading-relaxed max-w-3xl mx-auto">
               &ldquo;Luxury is not about the price tag. It&#39;s about the feeling of being somewhere truly special.&rdquo;
             </p>
-            <cite className="text-[#D4A843] text-sm mt-5 block not-italic tracking-wider uppercase">The Aurum Philosophy</cite>
+            <cite className="text-[var(--gold)] text-[10px] mt-8 block not-italic tracking-[0.3em] uppercase">The Aurum Philosophy</cite>
           </blockquote>
-        </Container>
+        </div>
       </main>
       <Footer />
     </>

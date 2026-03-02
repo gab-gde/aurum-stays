@@ -1,30 +1,28 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export function Pagination({ currentPage, totalPages, onPageChange }: {
-  currentPage: number; totalPages: number; onPageChange: (page: number) => void;
+export function Pagination({ page, total, perPage = 12, onChange }: {
+  page: number; total: number; perPage?: number; onChange: (p: number) => void;
 }) {
-  if (totalPages <= 1) return null;
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Math.ceil(total / perPage);
+  if (pages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-12">
-      <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}
-        className="px-3 py-2 rounded-lg text-gray-400 hover:text-[#D4A843] disabled:opacity-30 transition-colors">
+    <div className="flex items-center justify-center gap-2 mt-16">
+      <button onClick={() => onChange(page - 1)} disabled={page <= 1}
+        className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-white/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed">
         <ChevronLeft className="w-4 h-4" />
       </button>
-      {pages.map((p) => (
-        <button key={p} onClick={() => onPageChange(p)}
-          className={cn(
-            "w-10 h-10 rounded-lg text-sm font-medium transition-all duration-300",
-            p === currentPage ? "bg-[#D4A843] text-[#111217]" : "text-gray-400 hover:text-white hover:bg-white/5"
-          )}>
-          {p}
+      {Array.from({ length: pages }, (_, i) => (
+        <button key={i} onClick={() => onChange(i + 1)}
+          className={`w-10 h-10 border text-sm transition-all duration-300 ${
+            page === i + 1 ? 'border-[var(--gold)] text-[var(--gold)]' : 'border-white/10 text-white/30 hover:text-white hover:border-white/20'
+          }`}>
+          {i + 1}
         </button>
       ))}
-      <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}
-        className="px-3 py-2 rounded-lg text-gray-400 hover:text-[#D4A843] disabled:opacity-30 transition-colors">
+      <button onClick={() => onChange(page + 1)} disabled={page >= pages}
+        className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/30 hover:text-white hover:border-white/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed">
         <ChevronRight className="w-4 h-4" />
       </button>
     </div>

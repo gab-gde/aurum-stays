@@ -1,32 +1,45 @@
 "use client";
 import Link from "next/link";
 import { useScrollLock } from "@/lib/hooks";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { NAV_LINKS } from "@/lib/constants";
-import { X } from "lucide-react";
+import { X, LogOut } from "lucide-react";
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   useScrollLock(open);
+  const { user, logout } = useAuth();
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 md:hidden">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={onClose} />
-      <div className="absolute right-0 top-0 bottom-0 w-80 bg-[#16171F] border-l border-white/5 p-8 animate-slide-right">
-        <button onClick={onClose} className="absolute top-6 right-6 text-gray-500 hover:text-[#D4A843] transition-colors">
-          <X className="w-5 h-5" />
+    <div className="fixed inset-0 z-50 lg:hidden">
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm animate-fade-in" onClick={onClose} />
+      <div className="absolute inset-0 flex flex-col justify-center items-center animate-fade-in">
+        <button onClick={onClose} className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors">
+          <X className="w-6 h-6" strokeWidth={1} />
         </button>
-        <div className="mt-16 flex flex-col gap-6">
-          <p className="font-display text-lg gold-text tracking-wider mb-2">AURUM</p>
-          {NAV_LINKS.map((l) => (
+        <nav className="flex flex-col items-center gap-8">
+          {NAV_LINKS.map((l, i) => (
             <Link key={l.href} href={l.href} onClick={onClose}
-              className="text-lg text-gray-300 hover:text-[#D4A843] transition-colors tracking-wide">
+              style={{ animationDelay: `${i * 100 + 100}ms` }}
+              className="font-display text-4xl text-white/80 hover:text-[var(--gold)] transition-colors duration-500 opacity-0 animate-fade-in-up italic font-light">
               {l.label}
             </Link>
           ))}
-          <div className="gold-divider my-2" />
-          <Link href="/login" onClick={onClose} className="text-gray-400 hover:text-white transition">Sign In</Link>
-          <Link href="/register" onClick={onClose} className="btn-gold text-center text-sm">Register</Link>
-        </div>
+          <div className="w-12 h-[1px] bg-[var(--gold)]/30 my-4" />
+          {user ? (
+            <>
+              <Link href="/dashboard" onClick={onClose} className="text-xs text-white/40 hover:text-white tracking-[0.2em] uppercase">Dashboard</Link>
+              <button onClick={() => { logout(); onClose(); }} className="text-xs text-white/40 hover:text-red-400 tracking-[0.2em] uppercase flex items-center gap-2">
+                <LogOut className="w-3 h-3" /> Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" onClick={onClose} className="text-xs text-white/40 hover:text-white tracking-[0.2em] uppercase">Sign In</Link>
+              <Link href="/register" onClick={onClose} className="btn-gold text-[10px]"><span>Register</span></Link>
+            </>
+          )}
+        </nav>
       </div>
     </div>
   );

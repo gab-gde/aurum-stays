@@ -1,38 +1,44 @@
-import Link from "next/link";
+"use client";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Container } from "@/components/layout/Container";
-import { Card } from "@/components/ui/Card";
-import { CalendarCheck, Heart, Settings, Search } from "lucide-react";
+import Link from "next/link";
+import { CalendarCheck, Heart, Settings, Search, ArrowRight } from "lucide-react";
 
 const cards = [
-  { href: "/dashboard/bookings", icon: CalendarCheck, title: "My Bookings", desc: "View and manage your reservations" },
-  { href: "/dashboard/wishlist", icon: Heart, title: "Wishlist", desc: "Properties you\u2019ve saved" },
-  { href: "/dashboard/settings", icon: Settings, title: "Settings", desc: "Update your profile and preferences" },
-  { href: "/properties", icon: Search, title: "Browse", desc: "Discover new luxury properties" },
+  { icon: CalendarCheck, title: "My Bookings", desc: "View and manage your reservations", href: "/dashboard/bookings" },
+  { icon: Heart, title: "Wishlist", desc: "Properties you have saved", href: "/dashboard/wishlist" },
+  { icon: Settings, title: "Settings", desc: "Update your profile and preferences", href: "/dashboard/settings" },
+  { icon: Search, title: "Explore", desc: "Discover new luxury properties", href: "/properties" },
 ];
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+
   return (
     <>
       <Header />
-      <main className="pt-32 pb-16">
-        <Container className="max-w-4xl">
-          <h1 className="font-display text-3xl font-bold text-white mb-8">Dashboard</h1>
-          <div className="grid sm:grid-cols-2 gap-6">
+      <main className="pt-40 pb-16">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+          <div className="mb-16">
+            <p className="text-[var(--gold)] text-[11px] tracking-[0.4em] uppercase font-medium mb-4">Welcome back</p>
+            <h1 className="font-display text-4xl md:text-6xl font-light">
+              {user?.name?.split(" ")[0] || "Guest"}
+            </h1>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.02]">
             {cards.map(c => (
-              <Link key={c.href} href={c.href}>
-                <Card className="!p-6 h-full group">
-                  <div className="w-10 h-10 rounded-xl bg-[#D4A843]/10 flex items-center justify-center mb-4 group-hover:bg-[#D4A843]/20 transition-colors">
-                    <c.icon className="w-5 h-5 text-[#D4A843]" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-white font-semibold text-lg">{c.title}</h3>
-                  <p className="text-gray-500 text-sm mt-1">{c.desc}</p>
-                </Card>
+              <Link key={c.href} href={c.href}
+                className="group bg-[var(--dark)] p-8 hover:bg-[#111] transition-all duration-700">
+                <c.icon className="w-5 h-5 text-[var(--gold)]/30 group-hover:text-[var(--gold)] transition-colors duration-500 mb-6" strokeWidth={1} />
+                <h3 className="text-white text-sm font-medium mb-2 group-hover:text-[var(--gold)] transition-colors duration-500">{c.title}</h3>
+                <p className="text-white/20 text-xs leading-relaxed mb-6">{c.desc}</p>
+                <ArrowRight className="w-4 h-4 text-white/10 group-hover:text-[var(--gold)]/50 transition-all duration-500 group-hover:translate-x-1" />
               </Link>
             ))}
           </div>
-        </Container>
+        </div>
       </main>
       <Footer />
     </>

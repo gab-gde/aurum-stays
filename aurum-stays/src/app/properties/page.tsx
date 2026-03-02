@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Container } from "@/components/layout/Container";
 import { PropertyGrid } from "@/components/property/PropertyGrid";
 import { PropertyFilters } from "@/components/property/PropertyFilters";
 
@@ -26,16 +25,17 @@ export default async function PropertiesPage({ searchParams }: { searchParams: a
   return (
     <>
       <Header />
-      <main className="pt-32 pb-16">
-        <Container>
-          <div className="text-center mb-14">
-            <p className="text-[#D4A843] tracking-[0.3em] uppercase text-xs font-medium mb-4">Our Collection</p>
-            <h1 className="font-display text-4xl md:text-6xl font-bold">Luxury <span className="gold-text">Properties</span></h1>
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#D4A843] to-transparent mx-auto mt-6" />
+      <main className="pt-40 pb-16">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+          <div className="mb-20">
+            <p className="text-[var(--gold)] text-[11px] tracking-[0.4em] uppercase font-medium mb-6">Our Collection</p>
+            <h1 className="font-display text-5xl md:text-7xl font-light">
+              Luxury <em className="text-[var(--gold)]">Properties</em>
+            </h1>
           </div>
           <PropertyFilters />
           <PropertyGrid properties={properties} />
-        </Container>
+        </div>
       </main>
       <Footer />
     </>

@@ -1,40 +1,41 @@
 import { prisma } from "@/lib/prisma";
 import { AdminLayout } from "@/components/admin/AdminLayout";
+import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-import { formatDate, formatPrice } from "@/lib/utils";
 
 export default async function AdminBookingsPage() {
   const bookings = await prisma.booking.findMany({
-    include: { user: { select: { name: true, email: true } }, property: { select: { title: true } } },
+    include: { user: true, property: true },
     orderBy: { createdAt: "desc" },
   });
 
-  const statusVariant: Record<string, "gold" | "success" | "warning" | "danger" | "default"> = {
-    PENDING: "warning", CONFIRMED: "success", CANCELLED: "danger", COMPLETED: "gold",
-  };
+  const statusVariant = (s: string) => s === "CONFIRMED" ? "success" : s === "PENDING" ? "warning" : "danger";
 
   return (
     <AdminLayout>
-      <h1 className="font-display text-3xl font-bold text-white mb-8">Bookings</h1>
-      <div className="overflow-x-auto rounded-2xl border border-white/5">
-        <table className="w-full text-sm">
+      <div className="mb-12">
+        <p className="text-[var(--gold)] text-[10px] tracking-[0.4em] uppercase font-medium mb-3">Management</p>
+        <h1 className="font-display text-3xl text-white font-light"><em className="text-[var(--gold)]">Bookings</em></h1>
+      </div>
+      <div className="border border-white/[0.04] overflow-hidden">
+        <table className="w-full">
           <thead>
-            <tr className="border-b border-white/5 text-left text-gray-500">
-              <th className="p-4">Guest</th><th className="p-4">Property</th>
-              <th className="p-4">Dates</th><th className="p-4">Total</th><th className="p-4">Status</th>
+            <tr className="border-b border-white/[0.04]">
+              {["Guest","Property","Dates","Status","Total"].map(h => (
+                <th key={h} className="text-left px-6 py-4 text-[10px] text-white/25 uppercase tracking-[0.2em] font-medium">{h}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {bookings.map(b => (
-              <tr key={b.id} className="border-b border-white/5 hover:bg-white/5 transition">
-                <td className="p-4">
-                  <p className="text-white">{b.user.name}</p>
-                  <p className="text-gray-600 text-xs">{b.user.email}</p>
+              <tr key={b.id} className="border-b border-white/[0.02] hover:bg-white/[0.01] transition-colors">
+                <td className="px-6 py-4 text-white text-sm">{b.user.name}</td>
+                <td className="px-6 py-4 text-white/40 text-sm">{b.property.title}</td>
+                <td className="px-6 py-4 text-white/30 text-xs">
+                  {new Date(b.checkIn).toLocaleDateString()} — {new Date(b.checkOut).toLocaleDateString()}
                 </td>
-                <td className="p-4 text-gray-400">{b.property.title}</td>
-                <td className="p-4 text-gray-400 text-xs">{formatDate(b.checkIn)} &#8594; {formatDate(b.checkOut)}</td>
-                <td className="p-4 text-[#D4A843]">{formatPrice(b.totalPrice)}</td>
-                <td className="p-4"><Badge variant={statusVariant[b.status] || "default"}>{b.status}</Badge></td>
+                <td className="px-6 py-4"><Badge variant={statusVariant(b.status) as any}>{b.status}</Badge></td>
+                <td className="px-6 py-4 font-display text-[var(--gold)]">{formatPrice(b.totalPrice)}</td>
               </tr>
             ))}
           </tbody>

@@ -1,55 +1,89 @@
 "use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParallax } from "@/lib/hooks";
-import { Container } from "@/components/layout/Container";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 export function HeroSection() {
-  const offset = useParallax(0.4);
+  const offset = useParallax(0.3);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 scale-110" style={{ transform: `translateY(${offset}px) scale(1.1)` }}>
-        <div className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80')" }} />
+    <section className="relative h-screen flex items-end pb-24 overflow-hidden">
+      {/* BG with parallax */}
+      <div className="absolute inset-0" style={{ transform: `translateY(${offset}px)` }}>
+        <div className="absolute inset-0 bg-cover bg-center scale-110"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=85')" }} />
       </div>
-      <div className="absolute inset-0 bg-[#111217]/50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111217]/30 via-transparent to-[#111217]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#111217]/40 via-transparent to-[#111217]/40" />
 
-      <Container className="relative z-10 text-center">
-        <div className="opacity-0 animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "forwards" }}>
-          <p className="text-[#D4A843] tracking-[0.4em] uppercase text-xs font-medium mb-8">
-            Curated Luxury Collection
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--dark)] via-transparent to-[var(--dark)]/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--dark)]/50 via-transparent to-transparent" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full">
+        <div className="max-w-4xl">
+          {/* Subtitle */}
+          <div className={`overflow-hidden mb-6 transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+            style={{ transitionDelay: '300ms' }}>
+            <p className="text-[var(--gold)] text-[11px] tracking-[0.4em] uppercase font-medium">
+              Curated Luxury Collection
+            </p>
+          </div>
+
+          {/* Title */}
+          <h1 className="font-display font-light leading-[0.95] mb-8">
+            <span className={`block text-[clamp(3rem,7vw,7rem)] text-white overflow-hidden`}>
+              <span className={`block transition-all duration-[1.4s] ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                style={{ transitionDelay: '500ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                Where Luxury
+              </span>
+            </span>
+            <span className="block text-[clamp(3rem,7vw,7rem)] overflow-hidden">
+              <span className={`block text-[var(--gold)] italic transition-all duration-[1.4s] ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
+                style={{ transitionDelay: '700ms', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
+                Finds Home
+              </span>
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className={`text-white/50 text-lg md:text-xl max-w-xl leading-relaxed mb-12 font-light transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{ transitionDelay: '900ms' }}>
+            Discover handpicked estates, villas and residences in the world&#39;s most coveted destinations.
           </p>
-        </div>
-        <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-bold mb-8 leading-[1.05] opacity-0 animate-fade-in-up"
-          style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
-          Where Luxury<br />
-          <span className="gold-text">Finds Home</span>
-        </h1>
-        <p className="text-gray-300/80 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed opacity-0 animate-fade-in-up font-light"
-          style={{ animationDelay: "600ms", animationFillMode: "forwards" }}>
-          Discover handpicked estates, villas and residences in the world&#39;s most coveted destinations.
-        </p>
-        <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: "800ms", animationFillMode: "forwards" }}>
-          <Link href="/properties" className="btn-gold text-sm inline-flex items-center gap-3 tracking-[0.1em]">
-            Explore Collection
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </Container>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in"
-        style={{ animationDelay: "1200ms", animationFillMode: "forwards" }}>
-        <div className="flex flex-col items-center gap-2 text-gray-500">
-          <span className="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
-          <ChevronDown className="w-4 h-4 animate-float" />
+          {/* CTA */}
+          <div className={`transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{ transitionDelay: '1100ms' }}>
+            <Link href="/properties" className="btn-gold">
+              <span>Explore Collection</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="absolute top-10 left-10 w-16 h-16 border-l border-t border-[#D4A843]/20 opacity-0 animate-fade-in hidden md:block" style={{ animationDelay: "1000ms", animationFillMode: "forwards" }} />
-      <div className="absolute bottom-10 right-10 w-16 h-16 border-r border-b border-[#D4A843]/20 opacity-0 animate-fade-in hidden md:block" style={{ animationDelay: "1000ms", animationFillMode: "forwards" }} />
+      {/* Scroll indicator */}
+      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ transitionDelay: '1500ms' }}>
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-white/20 text-[9px] tracking-[0.4em] uppercase">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--gold)]/50 to-transparent" />
+        </div>
+      </div>
+
+      {/* Corner accents */}
+      <div className={`absolute top-24 right-12 transition-all duration-1000 hidden lg:block ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{ transitionDelay: '1300ms' }}>
+        <div className="w-24 h-24 border-r border-t border-[var(--gold)]/15" />
+      </div>
     </section>
   );
 }

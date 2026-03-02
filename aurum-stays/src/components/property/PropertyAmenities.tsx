@@ -1,33 +1,48 @@
 import {
-  Waves, Eye, ChefHat, Plane, Wine, Sparkles, Landmark,
-  Sun, Bell, Film, Dumbbell, Thermometer, Mountain, Bath,
-  Flame, Footprints, Umbrella, Target, Grape, Home, Palette,
-  ParkingCircle, Snowflake, Wind, Church, TreePine,
-  BookOpen, CircleDot, GlassWater
+  Waves, ChefHat, Dumbbell, Wifi, Car, Tv,
+  AirVent, Wine, Mountain, Flame, Anchor,
+  TreePine, Shirt, Music, Coffee, Wind,
+  Bath, Sparkles, Shield, Sun, Warehouse, Globe, Utensils, Snowflake, Eye, Dog, Baby, Accessibility
 } from "lucide-react";
 
-const ICONS: Record<string, any> = {
-  Pool: Waves, "Sea View": Eye, Chef: ChefHat, Helipad: Plane,
-  "Wine Cellar": Wine, Spa: Sparkles, "Eiffel View": Landmark,
-  Terrace: Sun, Concierge: Bell, "Home Cinema": Film,
-  Gym: Dumbbell, Sauna: Thermometer, "Ski Access": Mountain,
-  "Hot Tub": Bath, Fireplace: Flame, "Boot Room": Footprints,
-  "Private Beach": Umbrella, Tennis: Target, Vineyard: Grape,
-  "Staff Quarters": Home, "Designer Interior": Palette,
-  Parking: ParkingCircle, AC: Snowflake, Washer: Wind,
-  Chapel: Church, Gardens: TreePine, Library: BookOpen,
-  "Billiard Room": CircleDot, "Wine Cave": GlassWater,
+const ICON_MAP: Record<string, any> = {
+  Pool: Waves, "Private Pool": Waves, "Infinity Pool": Waves,
+  "Private Chef": ChefHat, Chef: ChefHat, Kitchen: Utensils,
+  Gym: Dumbbell, Fitness: Dumbbell,
+  WiFi: Wifi, "High-Speed WiFi": Wifi,
+  Parking: Car, Garage: Car,
+  TV: Tv, "Home Cinema": Tv, Cinema: Tv,
+  "Air Conditioning": AirVent, AC: AirVent,
+  "Wine Cellar": Wine, Bar: Wine,
+  "Mountain View": Mountain, "Sea View": Eye, "Ocean View": Eye,
+  Fireplace: Flame, "Fire Pit": Flame,
+  "Beach Access": Anchor, Marina: Anchor,
+  Garden: TreePine, Terrace: Sun,
+  Laundry: Shirt, "Walk-in Closet": Shirt,
+  "Sound System": Music, Piano: Music,
+  "Coffee Machine": Coffee, Espresso: Coffee,
+  Washer: Wind, Dryer: Wind,
+  Spa: Bath, Sauna: Bath, Jacuzzi: Bath, "Hot Tub": Bath,
+  "Concierge": Sparkles, Butler: Sparkles,
+  Security: Shield, Safe: Shield, CCTV: Shield,
+  "Heated Pool": Snowflake, "Ski Access": Snowflake,
+  "Pet Friendly": Dog, Pets: Dog,
+  "Baby Friendly": Baby, Crib: Baby,
+  Elevator: Accessibility, "Wheelchair Access": Accessibility,
+  Helipad: Globe, "Private Jet": Globe,
 };
 
 export function PropertyAmenities({ amenities }: { amenities: string[] }) {
+  if (!amenities?.length) return null;
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-white/[0.02]">
       {amenities.map((a) => {
-        const Icon = ICONS[a] || Sparkles;
+        const Icon = ICON_MAP[a] || Sparkles;
         return (
-          <div key={a} className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/[0.04] hover:border-[#D4A843]/20 hover:bg-[#D4A843]/[0.03] transition-all duration-300 group">
-            <Icon className="w-4 h-4 text-[#D4A843]/70 group-hover:text-[#D4A843] transition-colors" strokeWidth={1.5} />
-            <span className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">{a}</span>
+          <div key={a} className="bg-[var(--dark)] p-5 group hover:bg-[#111] transition-all duration-500 flex items-center gap-4">
+            <Icon className="w-4 h-4 text-[var(--gold)]/30 group-hover:text-[var(--gold)] transition-colors duration-500 flex-shrink-0" strokeWidth={1} />
+            <span className="text-white/40 text-sm group-hover:text-white/70 transition-colors duration-500">{a}</span>
           </div>
         );
       })}

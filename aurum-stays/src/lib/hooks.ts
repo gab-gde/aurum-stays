@@ -1,34 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia(query);
-    setMatches(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, [query]);
-  return matches;
-}
-
-export function useDebounce<T>(value: T, delay = 300): T {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const t = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(t);
-  }, [value, delay]);
-  return debounced;
-}
-
-export function useDateRange() {
-  const [checkIn, setCheckIn] = useState<Date | null>(null);
-  const [checkOut, setCheckOut] = useState<Date | null>(null);
-  const reset = useCallback(() => { setCheckIn(null); setCheckOut(null); }, []);
-  return { checkIn, checkOut, setCheckIn, setCheckOut, reset };
-}
-
 export function useScrollLock(locked: boolean) {
   useEffect(() => {
     if (locked) document.body.style.overflow = "hidden";
@@ -37,7 +9,7 @@ export function useScrollLock(locked: boolean) {
   }, [locked]);
 }
 
-export function useScrollReveal(threshold = 0.1) {
+export function useScrollReveal(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -78,4 +50,32 @@ export function useCountUp(end: number, duration = 2000, start = 0, trigger = tr
     requestAnimationFrame(step);
   }, [end, duration, start, trigger]);
   return value;
+}
+
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, [query]);
+  return matches;
+}
+
+export function useDebounce<T>(value: T, delay = 300): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
+  return debounced;
+}
+
+export function useDateRange() {
+  const [checkIn, setCheckIn] = useState<Date | null>(null);
+  const [checkOut, setCheckOut] = useState<Date | null>(null);
+  const reset = useCallback(() => { setCheckIn(null); setCheckOut(null); }, []);
+  return { checkIn, checkOut, setCheckIn, setCheckOut, reset };
 }

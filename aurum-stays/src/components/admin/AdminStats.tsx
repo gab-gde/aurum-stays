@@ -1,30 +1,18 @@
-import { Card } from "@/components/ui/Card";
-import { Building2, CalendarCheck, Users, TrendingUp } from "lucide-react";
+import { Building2, CalendarCheck, Users, DollarSign } from "lucide-react";
 
-const ICONS: Record<string, any> = {
-  Properties: Building2, Bookings: CalendarCheck, Users: Users, Revenue: TrendingUp,
-};
+const iconMap: Record<string, any> = { Building2, CalendarCheck, Users, DollarSign };
 
-type StatCard = { label: string; value: string; change: string };
-
-export function AdminStats({ stats }: { stats: StatCard[] }) {
+export function AdminStats({ stats }: { stats: { label: string; value: string | number; icon: string }[] }) {
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map((s) => {
-        const Icon = ICONS[s.label] || Building2;
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.02]">
+      {stats.map(s => {
+        const Icon = iconMap[s.icon] || Building2;
         return (
-          <Card key={s.label} className="!p-5">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-gray-500 text-sm">{s.label}</p>
-                <p className="text-2xl font-bold text-white mt-1">{s.value}</p>
-                <p className="text-emerald-400 text-xs mt-1">{s.change}</p>
-              </div>
-              <div className="w-10 h-10 rounded-xl bg-[#D4A843]/10 flex items-center justify-center">
-                <Icon className="w-5 h-5 text-[#D4A843]" strokeWidth={1.5} />
-              </div>
-            </div>
-          </Card>
+          <div key={s.label} className="bg-[#0D0D0D] p-6">
+            <Icon className="w-4 h-4 text-[var(--gold)]/30 mb-4" strokeWidth={1} />
+            <p className="font-display text-3xl text-white font-light mb-1">{s.value}</p>
+            <p className="text-white/20 text-[10px] uppercase tracking-[0.2em]">{s.label}</p>
+          </div>
         );
       })}
     </div>

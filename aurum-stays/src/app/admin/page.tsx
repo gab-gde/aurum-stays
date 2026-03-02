@@ -1,26 +1,28 @@
 import { prisma } from "@/lib/prisma";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { AdminStats } from "@/components/admin/AdminStats";
+import { formatPrice } from "@/lib/utils";
 
 export default async function AdminPage() {
-  const [properties, bookings, users, revenue] = await Promise.all([
+  const [properties, bookings, users] = await Promise.all([
     prisma.property.count(),
-    prisma.booking.count(),
+    prisma.booking.findMany(),
     prisma.user.count(),
-    prisma.booking.aggregate({ _sum: { totalPrice: true } }),
   ]);
-
-  const stats = [
-    { label: "Properties", value: properties.toString(), change: "+2 this month" },
-    { label: "Bookings", value: bookings.toString(), change: "+12 this month" },
-    { label: "Users", value: users.toString(), change: "+8 this month" },
-    { label: "Revenue", value: `\u20ac${(revenue._sum.totalPrice || 0).toLocaleString()}`, change: "+15% vs last month" },
-  ];
+  const revenue = bookings.reduce((sum, b) => sum + b.totalPrice, 0);
 
   return (
     <AdminLayout>
-      <h1 className="font-display text-3xl font-bold text-white mb-8">Admin Dashboard</h1>
-      <AdminStats stats={stats} />
+      <div className="mb-12">
+        <p className="text-[var(--gold)] text-[10px] tracking-[0.4em] uppercase font-medium mb-3">Overview</p>
+        <h1 className="font-display text-3xl text-white font-light">Admin <em className="text-[var(--gold)]">Dashboard</em></h1>
+      </div>
+      <AdminStats stats={[
+        { label: "Properties", value: properties, icon: "Building2" },
+        { label: "Bookings", value: bookings.length, icon: "CalendarCheck" },
+        { label: "Users", value: users, icon: "Users" },
+        { label: "Revenue", value: formatPrice(revenue), icon: "DollarSign" },
+      ]} />
     </AdminLayout>
   );
 }
