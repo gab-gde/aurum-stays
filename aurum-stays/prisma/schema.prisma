@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PropertyType {
+  VILLA
+  PENTHOUSE
+  CHALET
+  ESTATE
+  APARTMENT
+  MANSION
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  name      String
+  role      Role      @default(USER)
+  avatar    String?
+  phone     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+  reviews   Review[]
+  wishlists Wishlist[]
+}
+
+model Property {
+  id          String       @id @default(cuid())
+  title       String
+  slug        String       @unique
+  description String
+  type        PropertyType
+  price       Float
+  location    String
+  country     String
+  bedrooms    Int
+  bathrooms   Int
+  maxGuests   Int
+  area        Float
+  images      String[]
+  amenities   String[]
+  latitude    Float?
+  longitude   Float?
+  featured    Boolean      @default(false)
+  rating      Float        @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  bookings    Booking[]
+  reviews     Review[]
+  wishlists   Wishlist[]
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  checkIn    DateTime
+  checkOut   DateTime
+  guests     Int
+  totalPrice Float
+  status     BookingStatus @default(PENDING)
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property      @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Wishlist {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+  @@unique([userId, propertyId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
