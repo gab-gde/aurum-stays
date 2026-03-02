@@ -11,9 +11,10 @@ export function BookingCalendar({ onSelect, bookedDates = [] }: {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const days = Array.from({ length: firstDay }, () => null).concat(
-    Array.from({ length: daysInMonth }, (_, i) => i + 1)
-  );
+  const days: (number | null)[] = [
+    ...Array.from({ length: firstDay }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
 
   const monthName = current.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
