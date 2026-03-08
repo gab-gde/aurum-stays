@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-import { Check, X, Loader2, Clock, CheckCircle, XCircle, Award } from "lucide-react";
+import { Check, X, Loader2, Clock, CheckCircle, XCircle, Star } from "lucide-react";
 
 export default function AdminBookingsPage() {
   const [bookings, setBookings] = useState<any[]>([]);
@@ -33,7 +33,7 @@ export default function AdminBookingsPage() {
   const statusIcon = (s: string) => {
     if (s === "PENDING") return <Clock className="w-3 h-3" />;
     if (s === "CONFIRMED") return <CheckCircle className="w-3 h-3" />;
-    if (s === "COMPLETED") return <Award className="w-3 h-3" />;
+    if (s === "COMPLETED") return <Star className="w-3 h-3" />;
     return <XCircle className="w-3 h-3" />;
   };
 
@@ -103,7 +103,7 @@ export default function AdminBookingsPage() {
                               <button onClick={() => updateStatus(b.id, "COMPLETED")}
                                 className="w-8 h-8 border border-[var(--gold)]/20 flex items-center justify-center text-[var(--gold)] hover:bg-[var(--gold)]/10 transition-all"
                                 title="Mark Completed">
-                                <Award className="w-3.5 h-3.5" />
+                                <Star className="w-3.5 h-3.5" />
                               </button>
                               <button onClick={() => updateStatus(b.id, "CANCELLED")}
                                 className="w-8 h-8 border border-red-500/20 flex items-center justify-center text-red-400 hover:bg-red-500/10 transition-all"
