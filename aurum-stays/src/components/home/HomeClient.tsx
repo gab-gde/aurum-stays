@@ -5,6 +5,7 @@ import { HeroSection } from "./HeroSection";
 import { MarqueeSection } from "./MarqueeSection";
 import { StorySection } from "./StorySection";
 import { HorizontalProperties } from "./HorizontalProperties";
+import { ServicesPreview } from "./ServicesPreview";
 import { DestinationsSection } from "./DestinationsSection";
 import { StatsSection } from "./StatsSection";
 import { EditorialSection } from "./EditorialSection";
@@ -25,6 +26,7 @@ export function HomeClient({ featured, allProperties, totalProperties, totalBook
         <MarqueeSection />
         <StorySection />
         <HorizontalProperties properties={allProperties} />
+        <ServicesPreview />
         <DestinationsSection />
         <StatsSection totalProperties={totalProperties} totalBookings={totalBookings} />
         <EditorialSection />

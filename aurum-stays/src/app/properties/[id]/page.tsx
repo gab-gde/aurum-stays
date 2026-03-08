@@ -6,6 +6,7 @@ import { PropertyGallery } from "@/components/property/PropertyGallery";
 import { PropertyAmenities } from "@/components/property/PropertyAmenities";
 import { PropertyReviews } from "@/components/property/PropertyReviews";
 import { BookingForm } from "@/components/booking/BookingForm";
+import { PropertyServices } from "@/components/property/PropertyServices";
 import { PropertyCard } from "@/components/property/PropertyCard";
 import { formatPrice } from "@/lib/utils";
 import { Bed, Bath, Users, Maximize, MapPin, Star } from "lucide-react";
@@ -86,12 +87,21 @@ export default async function PropertyPage({ params }: { params: any }) {
               </div>
 
               {/* Reviews */}
-              <div>
+              <div className="mb-24">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-8 h-[1px] bg-[var(--gold)]/20" />
                   <h2 className="font-display text-2xl text-white font-light">Guest <em className="text-[var(--gold)]">Reviews</em></h2>
                 </div>
                 <PropertyReviews reviews={property.reviews} propertyId={property.id} />
+              </div>
+
+              {/* Services Upsell */}
+              <div>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-8 h-[1px] bg-[var(--gold)]/20" />
+                  <h2 className="font-display text-2xl text-white font-light">Enhance Your <em className="text-[var(--gold)]">Stay</em></h2>
+                </div>
+                <PropertyServices />
               </div>
             </div>
 
