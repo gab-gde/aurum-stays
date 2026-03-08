@@ -5,7 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES, SERVICE_CATEGORIES } from "@/lib/constants";
 import Link from "next/link";
-import { ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { ArrowUpRight, Search, SlidersHorizontal, X, Sparkles } from "lucide-react";
+
+const POPULAR_BUNDLE_IDS = ["private-chef", "spa-wellness", "chauffeur", "yacht-charter"];
 
 export default function ServicesPage() {
   const [category, setCategory] = useState("All");
@@ -130,6 +132,28 @@ export default function ServicesPage() {
               )}
             </div>
 
+            {/* Bundle banner */}
+            <ScrollReveal className="mb-12">
+              <div className="border border-[var(--gold)]/10 bg-[var(--gold)]/[0.02] p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-2 h-2 bg-[var(--gold)] rounded-full" />
+                    <p className="text-[var(--gold)] text-[10px] tracking-[0.3em] uppercase font-medium">Bundle &amp; Save</p>
+                  </div>
+                  <h3 className="font-display text-xl md:text-2xl text-white font-light">
+                    Add services when booking a property and save <em className="text-[var(--gold)]">10%</em>
+                  </h3>
+                  <p className="text-white/20 text-sm mt-2 font-light">
+                    Select any service directly from the booking form on any property page.
+                  </p>
+                </div>
+                <Link href="/properties" className="btn-gold flex-shrink-0">
+                  <span>Browse Properties</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </ScrollReveal>
+
             {/* Service grid */}
             {filtered.length === 0 ? (
               <div className="text-center py-32">
@@ -148,10 +172,15 @@ export default function ServicesPage() {
                         <img src={service.image} alt={service.title}
                           className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        <div className="absolute top-4 left-4">
+                        <div className="absolute top-4 left-4 flex items-center gap-2">
                           <span className="px-3 py-1.5 bg-black/30 backdrop-blur-sm text-[9px] text-[var(--gold)] tracking-[0.3em] uppercase border border-[var(--gold)]/10">
                             {service.category}
                           </span>
+                          {POPULAR_BUNDLE_IDS.includes(service.id) && (
+                            <span className="px-2.5 py-1.5 bg-[var(--gold)]/90 text-[var(--dark)] text-[8px] tracking-[0.15em] uppercase font-semibold flex items-center gap-1">
+                              <Sparkles className="w-2.5 h-2.5" /> Popular bundle
+                            </span>
+                          )}
                         </div>
                         <div className="absolute top-4 right-4 w-9 h-9 border border-white/15 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 backdrop-blur-sm">
                           <ArrowUpRight className="w-3.5 h-3.5 text-white" />

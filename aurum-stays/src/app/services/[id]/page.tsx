@@ -206,6 +206,21 @@ export default function ServiceDetailPage() {
                       )}
 
                       <p className="text-white/10 text-[10px] text-center tracking-wider">Free cancellation up to 48h before</p>
+
+                      {/* Bundle CTA */}
+                      <div className="border-t border-white/[0.04] pt-5 mt-2">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-1.5 h-1.5 bg-[var(--gold)] rounded-full" />
+                          <p className="text-[var(--gold)] text-[9px] tracking-[0.2em] uppercase font-medium">Bundle &amp; Save 10%</p>
+                        </div>
+                        <p className="text-white/15 text-xs leading-relaxed mb-4">
+                          Add this service when booking a property and save 10% automatically.
+                        </p>
+                        <Link href="/properties" className="flex items-center justify-center gap-2 w-full py-3 border border-white/[0.06] text-white/30 text-[10px] tracking-[0.2em] uppercase hover:border-[var(--gold)]/20 hover:text-[var(--gold)] transition-all duration-500">
+                          <span>Browse Properties</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
